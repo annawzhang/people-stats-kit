@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>People Stats Kit · 人力量化报告</title>
+<style>
+:root { --text:#0f172a; --muted:#64748b; --border:#e2e8f0; --accent:#0f766e; --bg:#f8fafc; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  background:var(--bg); color:var(--text); font-size:14px; line-height:1.6; }
+.wrap { max-width:980px; margin:0 auto; padding:28px 20px 60px; }
+h1 { font-size:1.6rem; margin:0 0 6px; }
+h2 { font-size:1.05rem; margin:28px 0 10px; border-left:4px solid var(--accent); padding-left:10px; }
+.muted { color:var(--muted); font-size:0.86rem; }
+.badge { display:inline-block; background:#fef3c7; color:#92400e; border-radius:999px; padding:2px 10px; font-size:0.75rem; }
+.grid { display:grid; gap:12px; grid-template-columns:repeat(4,1fr); margin:16px 0; }
+@media (max-width:800px) { .grid { grid-template-columns:1fr 1fr; } }
+.card { background:#fff; border:1px solid var(--border); border-radius:12px; padding:14px; }
+.card .lbl { color:var(--muted); font-size:0.78rem; }
+.card .val { font-size:1.45rem; font-weight:700; margin-top:4px; }
+table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+th, td { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+th { color:var(--muted); font-weight:600; font-size:0.8rem; background:#fff; }
+td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; }
+.note { background:#f0fdfa; border:1px solid #99f6e4; border-radius:10px; padding:12px 14px; font-size:0.86rem; margin-top:10px; }
+code { background:#f1f5f9; padding:1px 5px; border-radius:4px; font-size:0.84rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="badge">虚构数据 · 对齐公开作品口径</div>
+  <h1>People Stats Kit · 人力量化报告</h1>
+  <p class="muted">把统计学方法落到招聘漏斗、人才触达 AB、Offer 周期与评分校准。纯 Python 标准库，可复现。</p>
+
+  <div class="grid">
+    <div class="card"><div class="lbl">触达 AB 结论</div><div class="val">显著</div><div class="muted">p = 0.0007</div></div>
+    <div class="card"><div class="lbl">回复率提升</div><div class="val">19.2%</div><div class="muted">44.4% → 52.9%</div></div>
+    <div class="card"><div class="lbl">开实验每组至少</div><div class="val">612</div><div class="muted">α=0.05 · 功效 80%</div></div>
+    <div class="card"><div class="lbl">入职中位周期</div><div class="val">34.4 天</div><div class="muted">Kaplan–Meier</div></div>
+  </div>
+
+  <h2>1. 触达文案 AB · 双比例 z 检验</h2>
+  <p class="muted">场景对齐人才评估模型：对照组标准跟进 vs 实验组按 S+/S/A 分层跟进。混合样本不参与对比的排他逻辑见
+    <a href="https://github.com/annawzhang/explainable-talent-scoring">explainable-talent-scoring</a>。</p>
+  <table>
+    <thead><tr><th>组</th><th class="num">触达</th><th class="num">回复</th><th class="num">回复率</th></tr></thead>
+    <tbody>
+      <tr><td>对照组 · 标准跟进</td><td class="num">800</td><td class="num">355</td><td class="num">44.4%</td></tr>
+      <tr><td>实验组 · 分层跟进</td><td class="num">800</td><td class="num">423</td><td class="num">52.9%</td></tr>
+    </tbody>
+  </table>
+  <div class="note">z = 3.401，双侧 p = 0.0007。相对提升 19.2%。
+  若要在开跑前规划样本量：从 44.0% 做到 52.0%，每组约需 <strong>612</strong> 人。</div>
+
+  <h2>2. 招聘漏斗 · 转化率 Wilson 置信区间</h2>
+  <p class="muted">阶段名对齐 <a href="https://github.com/annawzhang/hiring-copilot">hiring-copilot</a>。看点估计不够，还要看区间是否重叠。</p>
+  <table>
+    <thead><tr><th>阶段</th><th class="num">人数</th><th class="num">上一步转化</th><th class="num">95% Wilson CI</th></tr></thead>
+    <tbody><tr><td>新简历</td><td class='num'>360</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td>初筛通过</td><td class='num'>170</td><td class='num'>47.2%</td><td class='num'>42.1% – 52.4%</td></tr><tr><td>电话面</td><td class='num'>168</td><td class='num'>98.8%</td><td class='num'>95.8% – 99.7%</td></tr><tr><td>现场面</td><td class='num'>145</td><td class='num'>86.3%</td><td class='num'>80.3% – 90.7%</td></tr><tr><td>Offer</td><td class='num'>58</td><td class='num'>40.0%</td><td class='num'>32.4% – 48.1%</td></tr><tr><td>已入职</td><td class='num'>24</td><td class='num'>41.4%</td><td class='num'>29.6% – 54.2%</td></tr></tbody>
+  </table>
+
+  <h2>3. 招聘周期 · Kaplan–Meier</h2>
+  <p class="muted">终点=入职；仍在 Offer / 观察未完记为删失。中位生存时间（一半人已入职）= <strong>34.4 天</strong>。</p>
+  <div class="note">曲线点数 106；事件 87 / 观察 120。
+  对应作品里 Offer 停留超时、接受率偏低时，先看周期分布再拍 SLA。</div>
+
+  <h2>4. 初筛分校准 · 预测 vs 现场面通过</h2>
+  <p class="muted">分数映射到 0–1，分档对齐初筛「0–39 / 40–59 / ≥60」。gap = 真实通过率 − 平均预测分。</p>
+  <table>
+    <thead><tr><th>分档</th><th class="num">人数</th><th class="num">平均预测</th><th class="num">真实通过率</th><th class="num">gap</th></tr></thead>
+    <tbody><tr><td>0–39 分档</td><td class='num'>119</td><td class='num'>24.8%</td><td class='num'>31.1%</td><td class='num'>6.3%</td></tr><tr><td>40–59 分档</td><td class='num'>142</td><td class='num'>50.9%</td><td class='num'>45.8%</td><td class='num'>-5.1%</td></tr><tr><td>≥60 分档</td><td class='num'>139</td><td class='num'>75.0%</td><td class='num'>69.1%</td><td class='num'>-6.0%</td></tr></tbody>
+  </table>
+  <div class="note">Brier score = 0.2271（越小越好）。高分档通过率应高于低分档，否则回头检查评分卡——与 hiring-copilot 分析页同一问题。</div>
+
+  <p class="muted" style="margin-top:28px">本地：<code>python3 run.py</code> · 测试：<code>python3 -m unittest discover -s tests -v</code></p>
+</div>
+</body>
+</html>
