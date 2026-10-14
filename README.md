@@ -2,6 +2,11 @@
 
 **把统计学方法直接接到招聘漏斗、人才触达 AB、Offer 周期和评分校准上——开实验前算样本量，跑完后看 p 值与置信区间，分数能不能信看校准图。**
 
+
+> **Copyright © 2026 张文婧 (Anna Zhang)** · [MIT License](./LICENSE) · [github.com/annawzhang](https://github.com/annawzhang)  
+> 欢迎学习与面试查阅；保留版权与许可声明。**禁止删除作者信息后冒充本人作品二次发表。** 公开内容为虚构/脱敏演示数据。
+
+
 [在线报告](https://annawzhang.github.io/people-stats-kit/) · 纯 Python 标准库，无第三方依赖
 
 > 全部为虚构场景数据；口径对齐已公开的 [explainable-talent-scoring](https://github.com/annawzhang/explainable-talent-scoring) 与 [hiring-copilot](https://github.com/annawzhang/hiring-copilot)。
